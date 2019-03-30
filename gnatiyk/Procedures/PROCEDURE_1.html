@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<TITLE>PROCEDURE_1</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<LINK HREF="../IBEHTMLDoc.css" type=text/css rel=STYLESHEET>
+ 
+<xml>
+<IBEHelp:Attr Name="ItemOrder" Value="1800"/>
+</xml>
+ 
+</HEAD>
+<BODY>
+<DIV ID="nsbanner">
+  <DIV ID="bannerrow1">
+    <TABLE CLASS="bannerparthead" CELLSPACING=0>
+      <TR ID="hdr" VALIGN="middle">
+        <TD CLASS="runninghead">"C:\Users\Odmen\AppData\Roaming\HK-Software\IBExpert\bases\GNATIYK.fdb". Procedures</TD>
+        <TD ALIGN="left" WIDTH="54px" NOWRAP>
+          <A HREF="Index.html"><IMG ALT="Previous topic" SRC="../Images/GoPrev.gif" BORDER="0"></A>
+          <A HREF="../Index.html"><IMG ALT="Chapter index" SRC="../Images/GoIndex.gif" BORDER="0"></A>
+          <A HREF="PROCEDURE_2.html"><IMG ALT="Next topic" SRC="../Images/GoNext.gif" BORDER="0"></A>
+        </TD>
+      </TR>
+    </TABLE>
+  </DIV>
+  <DIV ID="TitleRow">
+    <P CLASS="dtH1">PROCEDURE_1</P>
+  </DIV>
+ </DIV>
+<P CLASS="Base">&nbsp;</P>
+<P CLASS="Header1">Input Parameters</P>
+<TABLE CLASS="dtArg" CELLSPACING="0">
+  <TH WIDTH="1%"><P CLASS="Base2"><B>Parameter</B></P>
+  <TH WIDTH="20%"><P CLASS="Base2"><B>Type</B></P>
+  <TH WIDTH="50%"><P CLASS="Base2"><B>Description</B></P>
+  <TR>
+    <TD><P CLASS="Base2">DATE_BEG</TD>
+    <TD><P CLASS="Base2">DATE</TD>
+    <TD><P CLASS="Base2">&nbsp;</TD>
+  </TR>
+  <TR>
+    <TD><P CLASS="Base2">DATE_END</TD>
+    <TD><P CLASS="Base2">DATE</TD>
+    <TD><P CLASS="Base2">&nbsp;</TD>
+  </TR>
+</TABLE>
+<P CLASS="Base">&nbsp;</P>
+<P CLASS="Header1">Output Parameters</P>
+<TABLE CLASS="dtArg" CELLSPACING="0">
+  <TH WIDTH="1%"><P CLASS="Base2"><B>Parameter</B></P>
+  <TH WIDTH="20%"><P CLASS="Base2"><B>Type</B></P>
+  <TH WIDTH="50%"><P CLASS="Base2"><B>Description</B></P>
+  <TR>
+    <TD><P CLASS="Base2">ID_AUCTION</TD>
+    <TD><P CLASS="Base2">BIGINT</TD>
+    <TD><P CLASS="Base2">&nbsp;</TD>
+  </TR>
+  <TR>
+    <TD><P CLASS="Base2">PLACE</TD>
+    <TD><P CLASS="Base2">VARCHAR(64)</TD>
+    <TD><P CLASS="Base2">&nbsp;</TD>
+  </TR>
+  <TR>
+    <TD><P CLASS="Base2">AUCTION_DATE</TD>
+    <TD><P CLASS="Base2">DATE</TD>
+    <TD><P CLASS="Base2">&nbsp;</TD>
+  </TR>
+  <TR>
+    <TD><P CLASS="Base2">SNAME</TD>
+    <TD><P CLASS="Base2">VARCHAR(64)</TD>
+    <TD><P CLASS="Base2">&nbsp;</TD>
+  </TR>
+</TABLE>
+<P CLASS="Base">&nbsp;</P>
+<P CLASS="Header1">Description</P>
+<P CLASS="Base"><I>(There is no description for procedure PROCEDURE_1)</I></P>
+<P CLASS="Base">&nbsp;</P>
+<P CLASS="Header1">Definition</P>
+<P CLASS="Base"><span class="DDLCode">
+<code><pre>
+<b>CREATE</b><b> </b><b>PROCEDURE</b><b> </b><font color="# 080 0"><u>PROCEDURE_1</u></font><b>(</b>
+<b>    </b>DATE_BEG<b> </b><font color="# 080 0"><u>DMN_DATE</u></font><b>,</b>
+<b>    </b>DATE_END<b> </b><font color="# 080 0"><u>DMN_DATE</u></font><b>)</b>
+<b>RETURNS</b><b> </b><b>(</b>
+<b>    </b>ID_AUCTION<b> </b><font color="# 080 0"><u>DMN_PK</u></font><b>,</b>
+<b>    </b>PLACE<b> </b><font color="# 080 0"><u>DMN_STR</u></font><b>,</b>
+<b>    </b>AUCTION_DATE<b> </b><font color="# 080 0"><u>DMN_DATE</u></font><b>,</b>
+<b>    </b>SNAME<b> </b><font color="# 080 0"><u>DMN_STR</u></font><b>)</b>
+<b>AS</b>
+<b>begin</b>
+<b>  </b><b>for</b>
+<b>    </b><b>select</b><b> </b>a<b>.</b>id_auction<b>,</b><b> </b>a<b>.</b>start_place<b>,</b><b> </b>a<b>.</b>start_date<b>,</b><b> </b>s<b>.</b>subject_name
+<b>        </b><b>from</b><b> </b><font color="# 080 0"><u>auction</u></font><b> </b>a<b> </b><b>inner</b><b> </b><b>join</b><b> </b><font color="# 080 0"><u>subject_auction</u></font><b> </b>sa
+<b>            </b><b>on</b><b> </b>sa<b>.</b>id_auction<b> </b><b>=</b><b> </b>a<b>.</b>id_auction
+<b>            </b><b>inner</b><b> </b><b>join</b><b> </b><font color="# 080 0"><u>subject</u></font><b> </b>s
+<b>            </b><b>on</b><b> </b>s<b>.</b>id_subject<b> </b><b>=</b><b> </b>sa<b>.</b>id_subject
+<b>        </b><b>where</b><b> </b>a<b>.</b>start_date<b> </b><b>&gt;</b><b> </b>:date_beg<b> </b><b>and</b><b> </b>a<b>.</b>start_date<b> </b><b>&lt;</b><b> </b>:date_end
+<b>        </b><b>order</b><b> </b><b>by</b><b> </b>a<b>.</b>start_date
+<b>    </b><b>into</b><b> </b>:id_auction<b>,</b><b> </b>:place<b>,</b><b> </b>:auction_date<b>,</b><b> </b>:sname
+<b>  </b><b>do</b><b> </b><b>suspend</b><b>;</b>
+<b>end</b>
+
+</pre></code>
+</span></P>
+<P CLASS="Base">&nbsp;</P>
+<DIV CLASS="footer"><BR><HR></DIV>
+  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH=100%>
+    <TR VALIGN="middle">
+      <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+      <TD ALIGN="left" WIDTH="54px" NOWRAP>
+        <A HREF="Index.html"><IMG ALT="Previous topic" SRC="../Images/GoPrev.gif" BORDER="0"></A>
+        <A HREF="../Index.html"><IMG ALT="Chapter index" SRC="../Images/GoIndex.gif" BORDER="0"></A>
+        <A HREF="PROCEDURE_2.html"><IMG ALT="Next topic" SRC="../Images/GoNext.gif" BORDER="0"></A>
+      </TD>
+    </TR>
+  </TABLE>
+<P CLASS="Base">&nbsp;</P>
+</BODY></HTML>
